@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "DeepSeek Voice Listener",
+  "version": "1.1",
+  "description": "Transcribes meeting (tab) audio or your microphone and types it into the DeepSeek web chat.",
+  "permissions": ["tabs", "storage", "scripting"],
+  "host_permissions": ["https://chat.deepseek.com/*"],
+  "background": { "service_worker": "background.js" },
+  "action": { "default_title": "DeepSeek Listener" },
+  "content_scripts": [
+    {
+      "matches": ["https://chat.deepseek.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>DeepSeek Listener</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 0; padding: 16px; background: #0f1115; color: #e6e6e6; }
+    h1 { font-size: 16px; margin: 0 0 12px; }
+    label { display: block; font-size: 12px; margin: 10px 0 4px; color: #9aa0aa; }
+    select, input[type=text], input[type=number] { width: 100%; padding: 6px; border-radius: 6px; border: 1px solid #333; background: #1a1d24; color: #fff; box-sizing: border-box; }
+    .row { display: flex; gap: 8px; align-items: center; margin-top: 10px; font-size: 13px; }
+    .hint { font-size: 11px; color: #7d8491; margin-top: 4px; line-height: 1.4; }
+    button { width: 100%; margin-top: 14px; padding: 10px; border: 0; border-radius: 8px; font-size: 14px; cursor: pointer; background: #4d6bfe; color: #fff; }
+    button.stop { background: #d64545; }
+    #status { margin-top: 10px; font-size: 12px; color: #9aa0aa; }
+    #log { margin-top: 12px; height: 200px; overflow-y: auto; background: #1a1d24; border-radius: 8px; padding: 8px; font-size: 13px; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>🎙️ DeepSeek Voice Listener</h1>
+
+  <label>Audio source</label>
+  <select id="source">
+    <option value="tab">Meeting audio (other people) — share a tab</option>
+    <option value="mic">My microphone</option>
+  </select>
+  <div class="hint" id="sourceHint">
+    When you press Start, pick the meeting tab (Google Meet / Zoom web / Teams web / YouTube)
+    and tick <b>"Also share tab audio"</b>. Only the audio is used; the video is ignored.
+  </div>
+
+  <label>Speech language (language the speakers use)</label>
+  <select id="lang">
+    <option value="en-US">English (US)</option>
+    <option value="en-GB">English (UK)</option>
+    <option value="ar-EG">Arabic (Egypt)</option>
+    <option value="ar-SA">Arabic (Saudi)</option>
+    <option value="fr-FR">French</option>
+    <option value="de-DE">German</option>
+    <option value="es-ES">Spanish</option>
+  </select>
+
+  <label>Prompt prefix (added before every transcript)</label>
+  <input type="text" id="prefix" value="Someone just said this in my meeting. Give me a short suggested reply: " />
+
+  <label>Send after silence (seconds)</label>
+  <input type="number" id="silence" value="2" min="1" max="10" step="0.5" />
+
+  <div class="row"><input type="checkbox" id="autoSend" checked /><span>Auto-press send in DeepSeek</span></div>
+
+  <button id="toggle">Start listening</button>
+  <div id="status">Idle</div>
+  <div id="log"></div>
+
+  <script src="listener.js"></script>
+</body>
+</html>
